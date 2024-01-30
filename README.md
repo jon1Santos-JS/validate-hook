@@ -1,11 +1,18 @@
-# Installation
-> `npm install validate-hook`
+[![npm](https://img.shields.io/npm/l/react-hook-form?style=for-the-badge)](https://github.com/jon1Santos-JS/validate-hook?tab=MIT-1-ov-file#)
+
+### Features
+
+- Simple and easy to apply
+
+- [Small size](https://bundlephobia.com/result?p=react-hook-form@latest) and no [dependencies](./package.json)
+
+- [Typescript support](./index.d.ts)
+
 
 ### Install
 
     npm install react-hook-form
 
-[![npm](https://img.shields.io/npm/l/react-hook-form?style=for-the-badge)](https://github.com/jon1Santos-JS/validate-hook?tab=MIT-1-ov-file#)
 
 ### Quickstart
 
