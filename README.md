@@ -1,8 +1,16 @@
-[![npm](https://img.shields.io/npm/l/react-hook-form?style=for-the-badge)](https://github.com/jon1Santos-JS/validate-hook?tab=MIT-1-ov-file#)
+<div align="center">
+    
+[![npm](https://img.shields.io/npm/l/react-hook-form?style=for-the-badge)](https://github.com/jon1Santos-JS/validate-hook/blob/master/LICENSE)
+![GitHub repo size](https://img.shields.io/github/repo-size/jon1Santos-JS/validate-hook?style=for-the-badge)
+
+
+
+    
+</div>
 
 ### Features
 
-- Simple and easy to apply
+- Simple to use
 
 - [Small size](https://bundlephobia.com/result?p=react-hook-form@latest) and no [dependencies](./package.json)
 
@@ -11,7 +19,7 @@
 
 ### Install
 
-    npm install react-hook-form
+    npm install validate-hook
 
 
 ### Quickstart
@@ -39,18 +47,15 @@ function App() {
   return (
     <div className="App">
       <input onChange={(e)=> {
-        setInput((prev) => {
-          const newAttributes = { ...prev.attributes, value: e.target.value};
-          const newInput = {...prev, attributes: newAttributes};
-          return validateSingleSync(newInput);
-      })
+        setInput((prev) => ({...prev, attributes: { ...prev.attributes, value: e.target.value}}));
+        setInput((prev) => validateSingleSync(prev));
       }} type="text" value={input.attributes.value}/>
-      {input.errors.length > 0 ? input.errors[0] : null}
+      <div>
+        {input.errors.length > 0 ? input.errors[0] : null}
+      </div>
     </div>
   );
 }
 
 ```
 
-## Credits
-This package were created by [João Paulo](https://github.com/jon1Santos-JS).
