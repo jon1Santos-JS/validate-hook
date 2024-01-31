@@ -42,32 +42,46 @@ export type InputsToValidateType<T extends string> = {
 };
 
 export interface ValidateInputType<T extends string, U extends T> {
+    // Use to create validate conditionals and messages
     validations?: AsyncValidateFunctionType<T>;
+    // Use to create validate conditionals and messages
     validationsSync?: ValidateFunctionType<T>;
+    // Used by hook to return error messages
     errors: string[];
+    // An option to keep request errors (when submit the form)
     requestErrors?: string[];
+    // Required if you want to validate 2 or more fields at the same time (e.g password/confirm password)
     crossfields?: U[];
+    // Attributes to validate throught the validation functions (you can add more of them)
     attributes: InputAttributes;
+    // Use when you have an empty input, and don't want to write validation
     required?: { value: boolean; message?: string };
 }
 
+// Add more attributes if you want
 export interface InputAttributes {
     value: string;
     files?: FileList | null;
 }
 
 type ValidateFunctionType<T extends string> = (
+    // Attributes to handle inside the validations
     inputAttributes: InputAttributes,
+    // Inputs to handle inside the validations (e.g password/confirm password)
     inputs?: InputsToValidateType<T>,
 ) => Validation[];
 
 type AsyncValidateFunctionType<T extends string> = (
+    // Attributes to handle inside the validations
     inputAttributes: InputAttributes,
+    // Inputs to handle inside the validations (e.g password/confirm password)
     inputs?: InputsToValidateType<T>,
 ) => Promise<Validation[]>;
 
 interface Validation {
+    // Use to create a conditional to validate the input
     conditional: boolean | RegExpMatchArray | null | Promise<boolean | string>;
+    // Use to create a message to validate the input
     message: string;
 }
 
