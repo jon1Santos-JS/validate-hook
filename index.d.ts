@@ -13,7 +13,7 @@ declare class ValidateFunctions {
      * @param inputs Object with inputs to access them in  {@linkcode ValidateFunctionType} /  {@linkcode AsyncValidateFunctionType}.
      * @returns The `input` object itself.
      * */
-     validateSingleSync: <T extends string>(input: ValidateInputType<T, T>, inputs?: InputsToValidateType<T>) => ValidateInputType<T, T>;
+     validateSingleSync: <T extends string>(input: ValidateInputType<T>, inputs?: InputsToValidateType<T>) => ValidateInputType<T>;
     
      /** 
       * Validate a single input object asynchronously.
@@ -21,7 +21,7 @@ declare class ValidateFunctions {
       * @param inputs Object with inputs to access them in  {@linkcode ValidateFunctionType} /  {@linkcode AsyncValidateFunctionType}
       * @returns The `input` object itself.
       * */
-     validateSingle: <T extends string>(input: ValidateInputType<T, T>, inputs?: InputsToValidateType<T>) => Promise<ValidateInputType<T, T>>;
+     validateSingle: <T extends string>(input: ValidateInputType<T>, inputs?: InputsToValidateType<T>) => Promise<ValidateInputType<T>>;
  
      /** 
       * Validate 2 or more inputs.
@@ -38,10 +38,10 @@ declare class ValidateFunctions {
      validateMany: <T extends string>(inputs: InputsToValidateType<T>) => Promise<boolean>;
 }
 export type InputsToValidateType<T extends string> = {
-    [key in T]: ValidateInputType<T, T>;
+    [key in T]: ValidateInputType<T>;
 };
 
-export interface ValidateInputType<T extends string, U extends T> {
+export interface ValidateInputType<T extends string> {
     // Use to create validate conditionals and messages
     validations?: AsyncValidateFunctionType<T>;
     // Use to create validate conditionals and messages
@@ -51,7 +51,7 @@ export interface ValidateInputType<T extends string, U extends T> {
     // An option to keep request errors (when submit the form)
     requestErrors?: string[];
     // Required if you want to validate 2 or more fields at the same time (e.g password/confirm password)
-    crossfields?: U[];
+    crossfields?: T[];
     // Attributes to validate throught the validation functions (you can add more of them)
     attributes: InputAttributes;
     // Use when you have an empty input, and don't want to write validation
