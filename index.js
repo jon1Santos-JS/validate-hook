@@ -9,33 +9,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 export function useValidate() {
     function validateManySync(inputs) {
-        let isValid = onCheckManyRequired(inputs);
-        if (!isValid)
-            return isValid;
+        let isValid = true;
         for (const i in inputs) {
-            validateSingleSync(inputs[i], inputs);
-            if (inputs[i].errors.length > 0)
+            const input = validateSingleSync(inputs[i], inputs);
+            if (input.errors.length > 0)
                 isValid = false;
         }
         return isValid;
     }
     function validateMany(inputs) {
         return __awaiter(this, void 0, void 0, function* () {
-            let isValid = onCheckManyRequired(inputs);
-            if (!isValid)
-                return isValid;
+            let isValid = true;
             for (const i in inputs) {
-                validateSingleSync(inputs[i], inputs);
-            }
-            for (const i in inputs) {
-                if (inputs[i].errors.length > 0)
+                const input = validateSingleSync(inputs[i], inputs);
+                if (input.errors.length > 0)
                     isValid = false;
             }
             if (!isValid)
                 return isValid;
             for (const i in inputs) {
-                yield validateSingle(inputs[i], inputs);
-                if (inputs[i].errors.length > 0)
+                const input = yield validateSingle(inputs[i], inputs);
+                if (input.errors.length > 0)
                     isValid = false;
             }
             return isValid;
@@ -95,7 +89,11 @@ export function useValidate() {
     }
     function onCheckRequired(input) {
         const { attributes, required } = input;
-        if (!attributes.value && (required === null || required === void 0 ? void 0 : required.value)) {
+        if (!required)
+            return false;
+        if (required.value && attributes.value)
+            return false;
+        if (required.value && !attributes.value) {
             if (!required.message) {
                 input.errors.push('');
                 return true;
@@ -103,16 +101,6 @@ export function useValidate() {
             input.errors.push(required.message);
             return true;
         }
-        return false;
-    }
-    function onCheckManyRequired(inputs) {
-        let isValid = true;
-        for (const i in inputs) {
-            onCheckRequired(inputs[i]);
-            if (inputs[i].errors.length > 0)
-                isValid = false;
-        }
-        return isValid;
     }
     return {
         validateSingleSync,
