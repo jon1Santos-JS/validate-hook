@@ -1,6 +1,6 @@
 <div align="center">
 
-<a href="https://validating-form.vercel.app/" title="React Validate Form Hook - Tested App">
+<a href="https://validating-form.vercel.app/" target="_blank" title="React Validate Form Hook - Tested App">
 
 <img src="https://i.ibb.co/DQY27Mq/logo.png" alt="Validate Hook Form Logo - React custom hook for form validation" />
 
